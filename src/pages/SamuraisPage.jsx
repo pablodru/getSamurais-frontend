@@ -1,3 +1,3 @@
-export default async function SamuraisPage () {
+export default function SamuraisPage () {
     return ''
 }

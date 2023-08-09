@@ -16,7 +16,7 @@ const SCMainLogo = styled.div`
     height:auto;
     display: flex;
     flex-direction: column;
-    margin:100px auto 30px auto;
+    margin:80px auto 30px auto;
     justify-content: space-between;
     align-items:center;
     gap:20px

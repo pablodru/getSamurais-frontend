@@ -1,3 +1,3 @@
-export default async function MyServicesPage () {
+export default function MyServicesPage () {
     return ''
 }

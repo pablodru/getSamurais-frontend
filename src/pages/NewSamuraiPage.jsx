@@ -1,3 +1,3 @@
-export default async function NewSamuraiPage () {
+export default function NewSamuraiPage () {
     return ''
 }
