@@ -1,30 +1,54 @@
 import styled from "styled-components";
 import Logo from "../components/Logo";
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage () {
 
-    let [registerControl, setRegisterControl] = useState('part-1')
+    const navigate = useNavigate();
+
+    let [registerControl, setRegisterControl] = useState('part-1');
+    let [name, setName] = useState('');
+    let [city, setCity] = useState('');
+    let [phone, setPhone] = useState('');
+    let [email, setEmail] = useState('');
+    let [password, setPassword] = useState('');
+    let [confirmPassword, setConfirmPassword] = useState('');
+
+    function register(e){
+        e.preventDefault();
+
+        if ( password !== confirmPassword ) return alert('As senhas não coincidem.');
+
+        const URL = import.meta.env.BASE_URL;
+        const body = { name, city, phone, email, password };
+
+        axios.post(URL, body)
+            .then(response => navigate('/'))
+            .catch(err => alert(`O erro foi ${err.response.data}`));
+        
+    }
 
     return (
         <>
             <Logo />
-            <SCRegisterForm>
+            <SCRegisterForm onSubmit={(e) => register(e)} >
                 {registerControl==='part-1' && (
                 <>
                 <p>  Dados Pessoais </p>
-                <input type='text' placeholder='Nome' required />
-                <input type='text' placeholder='Cidade' required />
-                <input type='text' placeholder='URL da sua foto' required />
-                <SCButton onClick={() => setRegisterControl('part-2')} > Próximo </SCButton>
+                <input type='text' placeholder='Nome' required value={name} onChange={e => setName(e.target.value)} />
+                <input type='text' placeholder='Cidade' required value={city} onChange={e => setCity(e.target.value)} />
+                <input type='text' placeholder='Telefone' required value={phone} onChange={e => setPhone(e.target.value)} />
+                <SCButton disabled={!(name && city && photo)} onClick={() => setRegisterControl('part-2')} > Próximo </SCButton>
                 </>)}
 
                 {registerControl==='part-2' && (
                 <>
                 <p>  Dados Cadastrais </p>
-                <input type='email' placeholder='Email' required />
-                <input type='password' placeholder='Senha' required />
-                <input type='password' placeholder='Confirmar senha' required />
+                <input type='email' placeholder='Email' required value={email} onChange={e => setEmail(e.target.value)} />
+                <input type='password' placeholder='Senha' required value={password} onChange={e => setPassword(e.target.value)} />
+                <input type='password' placeholder='Confirmar senha' required value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
                 <SCButton type='submit' > Finalizar cadastro </SCButton>
                 </>)}
 
