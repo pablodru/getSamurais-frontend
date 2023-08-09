@@ -1,17 +1,38 @@
 import styled from "styled-components"
 import Logo from "../components/Logo"
 import { useNavigate } from "react-router-dom"
+import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 export default function LoginPage () {
 
     const navigate = useNavigate();
 
+    let [email, setEmail] = useState('');
+    let [password, setPassword] = useState('');
+
+    const { setToken } = useContext(UserContext);
+
+    function login(e) {
+        e.preventDefault();
+
+        const URL = import.meta.env.BASE_URL;
+        const body = { email, password };
+
+        axios.post(URL, body)
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => alert(`O erro foi ${err.response.data.message}`))
+    }
+
     return (
         <>
             <Logo />
-            <SCLoginForm>
-                <input type='email' placeholder='email' required />
-                <input type='password' placeholder='senha' required />
+            <SCLoginForm onSubmit={(e) => login(e)} >
+                <input type='email' placeholder='email' required value={email} onChange={e => setEmail(e.target.value)} />
+                <input type='password' placeholder='senha' required value={password} onChange={e => setPassword(e.target.value)} />
                 <SCButton style={{fontSize:'20px'}} type='submit' >Entrar</SCButton>
             </SCLoginForm>
             <SCButton onClick ={() => navigate('/cadastro')}>Quer criar uma conta? Cadastre-se!</SCButton>

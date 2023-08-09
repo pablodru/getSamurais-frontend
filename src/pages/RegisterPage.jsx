@@ -40,7 +40,7 @@ export default function RegisterPage () {
                 <input type='text' placeholder='Nome' required value={name} onChange={e => setName(e.target.value)} />
                 <input type='text' placeholder='Cidade' required value={city} onChange={e => setCity(e.target.value)} />
                 <input type='text' placeholder='Telefone' required value={phone} onChange={e => setPhone(e.target.value)} />
-                <SCButton disabled={!(name && city && photo)} onClick={() => setRegisterControl('part-2')} > Próximo </SCButton>
+                <SCButton disabled={!(name && city && phone)} onClick={() => setRegisterControl('part-2')} > Próximo </SCButton>
                 </>)}
 
                 {registerControl==='part-2' && (
