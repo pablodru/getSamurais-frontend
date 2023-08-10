@@ -24,8 +24,8 @@ export default function LoginPage () {
                 .then(response => {
                     console.log(response.data)
                     setToken(response.data);
-                    localStorage.setItem('data', JSON.stringify({token:response.data}))
-                    navigate('/samurais');
+                    localStorage.setItem('data', JSON.stringify({email:data.email, password:data.password, token:response.data.token}))
+                    navigate('/samurais', {state: response.data.name});
                 })
                 .catch(err => {
                     //alert(`O erro foi ${err.response.data}`)
