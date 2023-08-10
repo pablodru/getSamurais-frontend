@@ -1,3 +1,5 @@
 export default function NewSamuraiPage () {
-    return ''
+    return (
+        ''
+    )
 }

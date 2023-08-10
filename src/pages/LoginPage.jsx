@@ -24,6 +24,7 @@ export default function LoginPage () {
                 .then(response => {
                     console.log(response.data)
                     setToken(response.data);
+                    localStorage.setItem('data', JSON.stringify({token:response.data}))
                     navigate('/samurais');
                 })
                 .catch(err => {
@@ -45,7 +46,7 @@ export default function LoginPage () {
             .then(response => {
                 console.log(response.data)
                 setToken(response.data);
-                localStorage.setItem('data', JSON.stringify({email, password}))
+                localStorage.setItem('data', JSON.stringify({email, password, token:response.data}))
                 navigate('/');
             })
             .catch(err => {
