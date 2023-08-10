@@ -2,7 +2,7 @@ import styled from "styled-components"
 import Logo from "../components/Logo"
 import { useNavigate } from "react-router-dom"
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 
 export default function LoginPage () {
@@ -14,17 +14,44 @@ export default function LoginPage () {
 
     const { setToken } = useContext(UserContext);
 
+    useEffect(() => {
+        if(localStorage.getItem('data')){
+            const data = JSON.parse(localStorage.getItem("data"));
+            const URLPost = `${import.meta.env.VITE_API_URL}/signin`;
+            const bodyPost = { email:data.email, password: data.password };
+            
+            axios.post(URLPost, bodyPost)
+                .then(response => {
+                    console.log(response.data)
+                    setToken(response.data);
+                    navigate('/samurais');
+                })
+                .catch(err => {
+                    //alert(`O erro foi ${err.response.data}`)
+                    console.log(err)
+                });
+        }
+    }, [])
+
+    
+
     function login(e) {
         e.preventDefault();
 
-        const URL = import.meta.env.BASE_URL;
+        const URL = `${import.meta.env.VITE_API_URL}/signin`;
         const body = { email, password };
 
         axios.post(URL, body)
             .then(response => {
                 console.log(response.data)
+                setToken(response.data);
+                localStorage.setItem('data', JSON.stringify({email, password}))
+                navigate('/');
             })
-            .catch(err => alert(`O erro foi ${err.response.data.message}`))
+            .catch(err => {
+                alert(`O erro foi ${err.response.data}`)
+                console.log(err.response)
+            });
     }
 
     return (

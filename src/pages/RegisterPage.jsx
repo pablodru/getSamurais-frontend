@@ -21,12 +21,15 @@ export default function RegisterPage () {
 
         if ( password !== confirmPassword ) return alert('As senhas não coincidem.');
 
-        const URL = import.meta.env.BASE_URL;
+        const URL = `${import.meta.env.VITE_API_URL}/signup`;
         const body = { name, city, phone, email, password };
 
         axios.post(URL, body)
             .then(response => navigate('/'))
-            .catch(err => alert(`O erro foi ${err.response.data}`));
+            .catch(err => {
+                //alert(`O erro foi ${err.response.data.message}`);
+                console.log(err.config)
+            });
         
     }
 
