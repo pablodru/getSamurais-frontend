@@ -1,8 +1,13 @@
 import styled from "styled-components";
 import Header from "../components/Header";
 import { useState } from "react";
+import axios from "axios";
+import { configToken } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function NewSamuraiPage() {
+
+    const navigate = useNavigate();
 
     let [name, setName] = useState('');
     let [description, setDescription] = useState('');
@@ -11,6 +16,16 @@ export default function NewSamuraiPage() {
 
     function newService(e) {
         e.preventDefault();
+        
+        const newPrice = Number(price.replace(',','.'));
+
+        const URL = `${import.meta.env.VITE_API_URL}/services`;
+        const body = { name, description, price: newPrice, photo};
+        const headers = configToken();
+
+        axios.post(URL, body, headers)
+          .then(res => navigate('/samurais'))
+          .catch(err => alert(err.config))
     }
 
   return (

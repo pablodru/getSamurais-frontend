@@ -1,12 +1,21 @@
 import styled from "styled-components"
 import logo from '../assets/images/Samurai.png'
+import { useNavigate } from "react-router-dom"
 
 export default function Header() {
+
+    const navigate = useNavigate();
+
+    function logout(){
+        localStorage.removeItem('data');
+        navigate('/');
+    }
+
     return (
         <SCHeader>
-            <ion-icon name="arrow-back-outline"></ion-icon>
+            <ion-icon name="arrow-back-outline" onClick={() => navigate(-1)} ></ion-icon>
             <p> GET SAMURAIS </p>
-            <ion-icon name="exit-outline"></ion-icon>
+            <ion-icon name="exit-outline" onClick={logout} ></ion-icon>
         </SCHeader>
     )
 }
