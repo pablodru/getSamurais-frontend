@@ -46,7 +46,7 @@ export default function LoginPage () {
             .then(response => {
                 console.log(response.data)
                 setToken(response.data);
-                localStorage.setItem('data', JSON.stringify({email, password, token:response.data}))
+                localStorage.setItem('data', JSON.stringify({email, password, token:response.data.token, name:response.data.name}))
                 navigate('/samurais', {state: response.data.name});
             })
             .catch(err => {

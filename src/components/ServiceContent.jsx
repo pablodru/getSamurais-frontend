@@ -1,26 +1,44 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 
-export function ServiceContent () {
+export function ServiceContent (props) {
+    const {name, service, photo, price, city, id} = props;
+
+    const navigate = useNavigate();
+
+    function goToService(id){
+        navigate(`/samurais/${id}`);
+    }
+
     return (
-        <SCBox>
-            <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRevnWjT3sf0_AKh2l-1eUsBAhoSzt_sG4JXtAM0dHzYA&s' />
+        <SCBox onClick={() => goToService(id)}>
+            <img src={photo} alt={service} />
             <div>
-                <p>Pablo </p>
-                <p>Pedreiro</p>
+                <p>{name} </p>
+                <p>{service}</p>
             </div>
-            <p>R$ 100,00</p>
+            <div>
+                <p>{city }</p>
+                <p>R$ {price}</p>
+            </div>
         </SCBox>
     )
 }
 
 const SCBox = styled.div`
     width:300px;
-    height:330px;
+    min-height:330px;
     //background-color:red;
     margin: 12px auto 10px auto;
-    border: 1px solid black;
+    border: 1px solid #708090;
     border-radius:10px;
     box-shadow: 0 0 10px #708090;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    padding-bottom:8px;
     img {
         width:100%;
         height:250px;
@@ -29,18 +47,24 @@ const SCBox = styled.div`
     }
     div {
         width:100%;
+        height:auto;
         display: flex;
         justify-content: space-between;
         align-items:center;
-        margin: 8px 0;
-        padding:0 10px;
+        padding:10px 10px 0 10px;
+        :last-child {
+            border-top: 1px solid #708090;
+        }
     }
     p {
         font-size:16px;
         font-weight:600;
+        width:50%;
+        word-wrap: break-word;
+        vertical-align:top;
+        text-align:left;
         :last-child {
             padding:0 10px;
-            margin-top:10px;
         }
     }
     
