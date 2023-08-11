@@ -47,7 +47,7 @@ export default function LoginPage () {
                 console.log(response.data)
                 setToken(response.data);
                 localStorage.setItem('data', JSON.stringify({email, password, token:response.data}))
-                navigate('/');
+                navigate('/samurais', {state: response.data.name});
             })
             .catch(err => {
                 alert(`O erro foi ${err.response.data}`)
@@ -60,7 +60,7 @@ export default function LoginPage () {
             <Logo />
             <SCLoginForm onSubmit={(e) => login(e)} >
                 <input type='email' placeholder='email' required value={email} onChange={e => setEmail(e.target.value)} />
-                <input type='password' placeholder='senha' required value={password} onChange={e => setPassword(e.target.value)} />
+                <input type='password' placeholder='senha' required value={password} onChange={e => setPassword(e.target.value)} autoComplete="off" />
                 <SCButton style={{fontSize:'20px'}} type='submit' >Entrar</SCButton>
             </SCLoginForm>
             <SCButton onClick ={() => navigate('/cadastro')}>Quer criar uma conta? Cadastre-se!</SCButton>

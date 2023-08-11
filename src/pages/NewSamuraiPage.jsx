@@ -39,7 +39,7 @@ export default function NewSamuraiPage() {
         <label> Descrição do serviço </label>
         <input type='text' placeholder="Descrição" required value={description} onChange={e => setDescription(e.target.value)} />
 
-        <label> Preço do serviço </label>
+        <label> Preço por hora </label>
         <input type='text' placeholder="Preço" required value={price} onChange={e => setPrice(e.target.value)} />
 
         <label> Foto do Samurai </label>
