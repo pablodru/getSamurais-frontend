@@ -1,36 +1,70 @@
 import { useLocation, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import axios from 'axios';
+import { configToken } from "../services/api";
 
 export default function GetSamuraiPage() {
     const { id } = useParams();
     const location = useLocation();
-    const name = location.state;
+    const userName = location.state;
 
-    return (
-        <>
-            <Header />
-            <SCServiceName>Samurai de aluguel</SCServiceName>
-            <SCPersonalInfos>Pablo, Rio de Janeiro</SCPersonalInfos>
-            <SCImage>
-                <img
-                    src="https://imgnike-a.akamaihd.net/360x360/022619ID.jpg"
-                    alt="foto"
-                />
-            </SCImage>
-            <SCPrice>R$ 100,00</SCPrice>
-            <SCDescription>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-            </SCDescription>
-            <SCButtonContact>
-                Contate o samurai
-                <ion-icon name="logo-whatsapp"></ion-icon>
-            </SCButtonContact>
-        </>
-    );
+    const [service, setService] = useState();
+    
+    useEffect(() => {
+        const URL = `${import.meta.env.VITE_API_URL}/services/${id}`
+        const headers = configToken();
+
+        axios.get(URL, headers)
+            .then(res => setService(res.data))
+            .catch(err => alert(`O erro foi: ${err.response.data}`))
+    }, []);
+
+    console.log(service)
+
+    if ( !service ) {
+        return (
+            <>
+                <Header />
+                <SCServiceName>Olá, {name}!</SCServiceName>
+                <p> Carregando ...</p>
+            </>
+
+        )
+    } 
+    
+    else {
+
+        const price = (service.price/100).toFixed(2).replace('.',',');
+
+        const message = 
+            `Olá, meu nome é ${userName} e gostaria de contratar um serviço: %0A` +
+            `- Serviço: ${service.service}%0A` +
+            `- Valor: ${price}%0A`;
+
+
+        return (
+            <>
+                <Header />
+                <SCServiceName>{service.service}</SCServiceName>
+                <SCPersonalInfos>{service.name}, {service.city}</SCPersonalInfos>
+                <SCImage>
+                    <img
+                        src={service.photo}
+                        alt={service.service}
+                    />
+                </SCImage>
+                <SCPrice>R$ {price}</SCPrice>
+                <SCDescription>
+                    {service.description}
+                </SCDescription>
+                <SCButtonContact href={`https://wa.me/+55${service.phone}?text=${message}`} target="_blank" >
+                    Contate o samurai
+                    <ion-icon name="logo-whatsapp"></ion-icon>
+                </SCButtonContact>
+            </>
+        );}
 }
 
 const SCServiceName = styled.p`
@@ -74,9 +108,10 @@ const SCDescription = styled.p`
     height: auto;
     margin: 0 auto;
     word-wrap: break-word;
+    line-height: 20px;
 `;
 
-const SCButtonContact = styled.button`
+const SCButtonContact = styled.a`
     font-family:'Montserrat';
     font-size: 22px;
     font-weight:600;
@@ -91,13 +126,10 @@ const SCButtonContact = styled.button`
     font-weight:400;
     font-size:20px;
     color:#ffffff;
+    text-decoration: none;
 
     display:flex;
     align-items:center;
     justify-content:center;
     gap:15px;
-
-    ion-icon {
-        
-    }
 `
