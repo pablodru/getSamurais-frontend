@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 
 export function ServiceContent (props) {
-    const {name, service, photo, price, city, id} = props;
+    const { name, service, photo, price, city, id, userName } = props;
 
     const navigate = useNavigate();
 
     function goToService(id){
-        navigate(`/samurais/${id}`);
+        navigate(`/samurais/${id}`, {state: userName});
     }
 
     return (

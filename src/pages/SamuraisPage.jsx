@@ -33,6 +33,8 @@ export default function SamuraisPage () {
         navigate(`/samurais/${id}`);
     }
 
+    //MUDAR PARA MOSTRAR SOMENTE OS SERVIÇOS DISPONÍVEIS, AUQI E NA APIIIIIIIIIIIIIIIIIIIII
+
     if ( services.length === 0 ) {
         return (
             <>
@@ -53,7 +55,7 @@ export default function SamuraisPage () {
                 {services.map(service => {
                     const price = (service.price/100).toFixed(2);
                     return(
-                    <ServiceContent onClick={() => goToService(service.id)} key={service.id} id={service.id} name={service.name} city={service.city} service={service.service} photo={service.photo} price={price} />
+                    <ServiceContent onClick={() => goToService(service.id, name)} key={service.id} userName={name} id={service.id} name={service.name} city={service.city} service={service.service} photo={service.photo} price={price} />
                     )
                 })}
             </>
