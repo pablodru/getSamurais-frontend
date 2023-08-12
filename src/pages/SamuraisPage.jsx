@@ -52,6 +52,7 @@ export default function SamuraisPage () {
                 <HeaderMain />
                 <SCTitle>Olá, {name}!</SCTitle>
                 <SCNewService onClick={newService}> Cadastre um novo serviço </SCNewService>
+                <SCAvailable> Serviços disponíveis: </SCAvailable>
                 {services.map(service => {
                     const price = (service.price/100).toFixed(2);
                     return(
@@ -89,4 +90,11 @@ const SCNewService = styled.button`
     display:flex;
     align-items:center;
     justify-content:center;
+`
+
+const SCAvailable = styled.p`
+    margin-left: 35px;
+    font-family:'Montserrat';
+    font-size: 20px;
+    font-weight:500;
 `
