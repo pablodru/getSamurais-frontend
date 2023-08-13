@@ -49,7 +49,7 @@ export default function SamuraisPage () {
     else {
         return (
             <>
-                <HeaderMain />
+                <HeaderMain name={name} />
                 <SCTitle>Olá, {name}!</SCTitle>
                 <SCNewService onClick={newService}> Cadastre um novo serviço </SCNewService>
                 <SCAvailable> Serviços disponíveis: </SCAvailable>

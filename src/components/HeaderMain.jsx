@@ -2,7 +2,7 @@ import styled from "styled-components"
 import logo from '../assets/images/Samurai.png'
 import { useNavigate } from "react-router-dom"
 
-export default function HeaderMain() {
+export default function HeaderMain({name}) {
 
     const navigate = useNavigate();
 
@@ -13,7 +13,7 @@ export default function HeaderMain() {
 
     return (
         <SCHeader>
-            <ion-icon name="person-circle-outline" onClick={() => navigate('/meus-servicos')} ></ion-icon>
+            <ion-icon name="person-circle-outline" onClick={() => navigate('/meus-servicos', {state: name})} ></ion-icon>
             <p> GET SAMURAIS </p>
             <ion-icon name="exit-outline" onClick={logout} ></ion-icon>
         </SCHeader>
