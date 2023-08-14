@@ -10,6 +10,9 @@ export default function ServiceByUser (props) {
     const headers = configToken();
 
     function deleteService () {
+
+        const confirm = window.confirm('Deseja deletar este serviço?');
+        if ( !confirm ) return
         
         axios.delete(URL, headers)
             .then(res => setChange(prev => !prev))
@@ -18,6 +21,9 @@ export default function ServiceByUser (props) {
     }
 
     function editStatus () {
+
+        const confirm = window.confirm(`Deseja ${status === 'ativo' ? 'desativar' : 'ativar'} este serviço?`);
+        if ( !confirm ) return
 
         axios.put(URL, {}, headers)
             .then(res => setChange(prev => !prev))
