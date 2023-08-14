@@ -10,4 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     p {
         font-family: 'Montserrat';
     }
+    ion-icon, button {
+        cursor:pointer;
+    }
 `

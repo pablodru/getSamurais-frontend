@@ -14,7 +14,7 @@ export default function HeaderMain({name}) {
     return (
         <SCHeader>
             <ion-icon name="person-circle-outline" onClick={() => navigate('/meus-servicos', {state: name})} ></ion-icon>
-            <p> GET SAMURAIS </p>
+            <p onClick={() => navigate('/samurais')} > GET SAMURAIS </p>
             <ion-icon name="exit-outline" onClick={logout} ></ion-icon>
         </SCHeader>
     )
@@ -44,6 +44,7 @@ const SCHeader = styled.div`
     p {
         font-size: 18px;
         font-weight: 700;
+        cursor:pointer;
     }
     h6{
         font-family: 'Montserrat';

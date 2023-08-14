@@ -14,7 +14,7 @@ export default function Header() {
     return (
         <SCHeader>
             <ion-icon name="arrow-back-outline" onClick={() => navigate(-1)} ></ion-icon>
-            <p> GET SAMURAIS </p>
+            <p onClick={() => navigate('/samurais')} > GET SAMURAIS </p>
             <ion-icon name="exit-outline" onClick={logout} ></ion-icon>
         </SCHeader>
     )
