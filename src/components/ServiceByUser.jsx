@@ -1,19 +1,45 @@
 import styled from "styled-components"
+import { configToken } from "../services/api";
+import axios from "axios";
 
-export default function ServiceByUser () {
+export default function ServiceByUser (props) {
 
-    let status = 'ativo'
+    const { service, price, status, id, photo, setChange } = props;
+
+    const URL = `${import.meta.env.VITE_API_URL}/my-services/${id}`;
+    const headers = configToken();
+
+    function deleteService () {
+        
+        axios.delete(URL, headers)
+            .then(res => setChange(prev => !prev))
+            .catch(err => alert(`Erro: ${err.response.data.message}`))
+
+    }
+
+    function editStatus () {
+
+        axios.put(URL, {}, headers)
+            .then(res => setChange(prev => !prev))
+            .catch(err => {
+                console.log(err)
+                //alert(`Erro: ${err.response.data.message}`)
+            })
+
+    }
+
     return (
         <>
             <SCContent>
-                <img src='https://imgnike-a.akamaihd.net/360x360/02695451.jpg' />
+                <img src={photo} />
                 <div>
-                    <p>Samurai de aluguel</p>
-                    <p>R$ 500,00</p>
+                    <p>{service}</p>
+                    <p>R$ {price.replace('.',',')}</p>
                 </div>
-                <SCStatusP>Status: <SCStatus status='ativo' >ativo</SCStatus></SCStatusP>
+                <SCStatusP>Status: <SCStatus status={status} > {status} </SCStatus></SCStatusP>
+                <ion-icon name="trash-outline" style={{color:'red'}} onClick={deleteService} ></ion-icon>
             </SCContent>
-            <SCButton>
+            <SCButton onClick={editStatus} >
                 {status === 'ativo' ? 'Desativar' : 'Ativar'}
             </SCButton>
         </>
@@ -56,6 +82,7 @@ const SCContent = styled.div`
     border: 1px solid #708090;
     border-radius:10px;
     box-shadow: 0 0 10px #708090;
+    position: relative;
     img {
         width: 100%;
         height:200px;
@@ -75,5 +102,12 @@ const SCContent = styled.div`
                 font-weight:500;
             }
         }
+    }
+    ion-icon {
+        position: absolute;
+        width:30px;
+        height:30px;
+        right:20px;
+        bottom:20px;
     }
 `
