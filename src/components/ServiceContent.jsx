@@ -29,7 +29,7 @@ const SCBox = styled.div`
     width:300px;
     min-height:330px;
     //background-color:red;
-    margin: 12px auto 10px auto;
+    margin: 12px auto 20px auto;
     border: 1px solid #708090;
     border-radius:10px;
     box-shadow: 0 0 10px #708090;

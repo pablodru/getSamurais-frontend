@@ -55,7 +55,7 @@ export default function SamuraisPage () {
                 <SCNewService onClick={newService}> Cadastre um novo serviço </SCNewService>
                 <SCAvailable> Serviços disponíveis: </SCAvailable>
                 {services.map(service => {
-                    const price = (service.price/100).toFixed(2);
+                    const price = (service.price/100).toFixed(2).replace('.',',');
                     return(
                     <ServiceContent onClick={() => goToService(service.id, name)} key={service.id} userName={name} id={service.id} name={service.name} city={service.city} service={service.service} photo={service.photo} price={price} />
                     )
