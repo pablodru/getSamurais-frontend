@@ -12,6 +12,9 @@ export default function SamuraisPage () {
     const location = useLocation();
     const name = location.state;
 
+    const userName = JSON.parse(localStorage.getItem('data')).name;
+    console.log(userName)
+
     const [services, setServices] = useState([]);
 
     useEffect(() => {
@@ -33,14 +36,12 @@ export default function SamuraisPage () {
         navigate(`/samurais/${id}`);
     }
 
-    //MUDAR PARA MOSTRAR SOMENTE OS SERVIÇOS DISPONÍVEIS, AUQI E NA APIIIIIIIIIIIIIIIIIIIII
-
     if ( services.length === 0 ) {
         return (
             <>
                 <HeaderMain />
-                <SCTitle>Olá, {name}!</SCTitle>
-                <p> Carregando ...</p>
+                <SCTitle>Olá, {name ? name : userName}!</SCTitle>
+                <SCAvailable style={{marginTop:'50px'}} > Carregando ...</SCAvailable>
             </>
 
         )
@@ -50,7 +51,7 @@ export default function SamuraisPage () {
         return (
             <>
                 <HeaderMain name={name} />
-                <SCTitle>Olá, {name}!</SCTitle>
+                <SCTitle>Olá, {name ? name : userName}!</SCTitle>
                 <SCNewService onClick={newService}> Cadastre um novo serviço </SCNewService>
                 <SCAvailable> Serviços disponíveis: </SCAvailable>
                 {services.map(service => {

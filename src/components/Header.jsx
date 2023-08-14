@@ -44,5 +44,6 @@ const SCHeader = styled.div`
     p {
         font-size: 18px;
         font-weight: 700;
+        cursor:pointer;
     }
 `
